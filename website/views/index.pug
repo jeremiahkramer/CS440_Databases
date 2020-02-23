@@ -1,0 +1,44 @@
+doctype html
+html
+head
+  title #{title}
+  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
+  link(rel='stylesheet', href='/css/style.css')
+  script(src="https://code.jquery.com/jquery-3.4.1.min.js")
+  script    
+    include index.js
+  meta(name="viewport" content="width=device-width, initial-scale=1")
+body
+  main
+    block header
+      header.header
+        h1 #{title}
+    block content
+    div.container
+        div.topBox
+        
+            div.badge-warning.dynamic.left(data-tablename="" )
+                button.x.close(aria-label="Close")
+                    span(aria-hidden="true") &times;
+                p.pholder.xytext.lefttext(placeholder="Click a table to compare!")
+            
+            div.badge-primary.dynamic.middle VS.
+            
+            div.badge-danger.dynamic.right(data-tablename="" )
+                button.x.close(aria-label="Close")
+                    span(aria-hidden="true") &times;
+                p.pholder.xytext.righttext(placeholder="Click a table to compare!")
+            
+            button.btn.btn-secondary.graph Graph!
+
+        div.btn-group-vertical
+            button.btn.btn-primary.tablename Births
+            button.btn.btn-primary.tablename Crime
+            button.btn.btn-primary.tablename Mortality
+            button.btn.btn-primary.tablename Income
+            button.btn.btn-primary.tablename Elevation              
+            button.btn.btn-primary.tablename Population
+            button.btn.btn-primary.tablename Mental Illness           
+            button.btn.btn-primary.tablename Crime
+            button.btn.btn-primary.tablename STD's
+            button.btn.btn-primary.tablename Voting    

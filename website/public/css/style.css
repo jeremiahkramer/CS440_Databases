@@ -1,0 +1,58 @@
+.header {
+    width: 100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    background-color: #b5e3f5;
+    color: coral;
+    margin-bottom: 75px;
+}
+/* .btn {
+    background-color:#b5e3f5;
+    border-color:coral;
+    color:black;
+} */
+.topBox{
+    width: 80%;
+    height: 200px;
+    position: relative;
+}
+
+.dynamic {
+    margin:1em;
+    float:left; 
+    font-size:24px;
+    height: 70px;
+    text-align: center;
+    vertical-align: middle;
+    top:50%;
+}
+.left {
+    width: 40%;
+    border:2px solid black;
+}
+.right{
+    width: 40%;
+    border:2px solid black;
+}
+
+.pholder:empty:before {
+    content:attr(placeholder);
+    color:gray
+  }
+  .midde{
+    border:none;
+    width: 20%;
+    padding-top: 30px;
+}
+.close {
+    color: black    ; 
+    opacity: 1;
+}
+
+.graph {
+    height: 70px;
+    width: 10%;
+    overflow:auto;
+}
