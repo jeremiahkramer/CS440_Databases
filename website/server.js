@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const chartjs = require('chartjs-node');
 const mysql = require('mysql');
 app.set('view engine', 'pug');
 app.use(express.static(__dirname + '/public'));
@@ -21,26 +20,44 @@ connection.connect((err) => {
     return;
   }
   console.log('Connected to Database!');
-
 });
 
+//handle querying to get data for plots
 app.post('/', (req, res) => {
-  req.left
+  console.log(req.body.right);
+  res_data = {
+    left_data: [],
+    right_data: []
+  }
+  //general query for a state, on 'left' table
+  connection.query("SELECT * FROM " + req.body.left + " WHERE state = " + req.body.state, (err, rows)=>{
+    if(err){
+      console.log("Failed query!");
+      return;
+    }
+    console.log("Successfully recieved tuple", rows[0]);
+    res_data.left_data = rows[0];
+  });
+  //general query for a state, on 'right' table
+  connection.query("SELECT * FROM " + req.body.right + " WHERE state = " + req.body.state, (err, rows)=>{
+    if(err){
+      console.log("Failed query!");
+      return;
+    }
+    console.log("Successfully recieved tuple", rows[0]);
+    res_data.right_data = rows[0]; 
+  });
+  //send back the data
+  res.send(res_data);
+  
 });
 
-state_names = ['AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ];
+state_names = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
 app.get('/', (req, res) => {
-    // connection.query("SELECT * FROM birth_data_by_city limit 1", (err, rows)=>{
-    //     if(err){
-    //         console.log("Failed query!");
-    //         return;
-    //     }
-    //     console.log("Successfully recieved tuple!!!!!!", rows[0]);
-        res.render('index' ,{
-          title: 'State Data Viewer',
-          states: state_names
-        });
-    // });
+  res.render('index' ,{
+    title: 'State Data Viewer',
+    states: state_names
+  });
 });
 
 const server = app.listen(7000,() => {

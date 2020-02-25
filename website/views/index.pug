@@ -29,15 +29,13 @@ body
                     span(aria-hidden="true") &times;
                 p.pholder.xytext.righttext(placeholder="Click a table to compare!")
             
-            button.btn.btn-secondary.graph Graph!
+            button.btn.btn-secondary.graph Plot!
 
-            div.btn-group
-              buttontype(type="button" class="form-control btn btn-default dropdown-toggle" data-toggle="dropdown")
-                span.caret Select State
-              ul.dropdown-menu(role="menu")
-                each name in states
-                  li.dropdown-item(href="#")
-                    a #{name}
+            label(class="select" for="state-select") Select State
+            select(name="state-select" id="state-select" data-mini="true")
+              each name in states
+                option(value= {name}) #{name}
+
         div.btn-group-vertical
             button.btn.btn-primary.tablename Births
             button.btn.btn-primary.tablename Crime
@@ -48,4 +46,6 @@ body
             button.btn.btn-primary.tablename Mental Illness           
             button.btn.btn-primary.tablename Crime
             button.btn.btn-primary.tablename STD's
-            button.btn.btn-primary.tablename Voting    
+            button.btn.btn-primary.tablename Voting
+            button.btn.btn-primary.tablename Education
+            

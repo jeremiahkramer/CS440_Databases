@@ -12,11 +12,6 @@ $(".tablename").click(function() {
     }
 });
 
-//state selection
-$('.dropdown-menu').click(function() {    
-    $('.dropdown-toggle').html($(this).html() + '<span class="caret"></span>');    
-});
-
 //clear input upon x click
 $(".x").click(function() {
     $(this).parent().children(".xytext").text(""); //check sibling with the xytext class (p tag)
@@ -39,9 +34,15 @@ $(".graph").click(function() {
         state: s
     };
     var jsonData = JSON.stringify(data);
-    xhr.open("POST","/",true);
+    console.log(jsonData);
+    xhr.open("post", "/", true);
     xhr.setRequestHeader('Content-type','application/json');
     xhr.send(jsonData);
+    //recieve the data
+    xhr.onload = function(){
+        let res = JSON.parse(xhr.response);
+        console.log(res);
+      };
 });
 
 function relClick(){
@@ -53,13 +54,15 @@ function relClick(){
     xhr.setRequestHeader('Content-type','application/json');
     xhr.send(jsonData);
     console.log("Clicked Relevant");
+
+
     xhr = new XMLHttpRequest();
     xhr.open("GET","/newtweet",true); 
     xhr.send();
     xhr.onload = function(){
-    var check = JSON.parse(xhr.response);
-    data = (check['ndata'][0]);
-    newItem(data,check['rc'],check['ic'],check['mc']);
+        var check = JSON.parse(xhr.response);
+        data = (check['ndata'][0]);
+        newItem(data,check['rc'],check['ic'],check['mc']);
     };
 }
 });//JQuery end
