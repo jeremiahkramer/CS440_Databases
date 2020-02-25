@@ -56,3 +56,10 @@
     width: 10%;
     overflow:auto;
 }
+.caret {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+}
+
+.dropdown-menu {width: 100%;}

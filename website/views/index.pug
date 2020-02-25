@@ -31,6 +31,13 @@ body
             
             button.btn.btn-secondary.graph Graph!
 
+            div.btn-group
+              buttontype(type="button" class="form-control btn btn-default dropdown-toggle" data-toggle="dropdown")
+                span.caret Select State
+              ul.dropdown-menu(role="menu")
+                each name in states
+                  li.dropdown-item(href="#")
+                    a #{name}
         div.btn-group-vertical
             button.btn.btn-primary.tablename Births
             button.btn.btn-primary.tablename Crime

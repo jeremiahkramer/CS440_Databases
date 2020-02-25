@@ -12,6 +12,11 @@ $(".tablename").click(function() {
     }
 });
 
+//state selection
+$('.dropdown-menu').click(function() {    
+    $('.dropdown-toggle').html($(this).html() + '<span class="caret"></span>');    
+});
+
 //clear input upon x click
 $(".x").click(function() {
     $(this).parent().children(".xytext").text(""); //check sibling with the xytext class (p tag)
@@ -23,7 +28,7 @@ $(".graph").click(function() {
     let r = $(".right").children(".righttext").text();
     // hardcoded
     let s = "OR";
-    if(!l or !r){
+    if(!l || !r){
         alert("You must select two tables before continuing!");
         return;
     }
