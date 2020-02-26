@@ -45,11 +45,11 @@ app.post('/', (req, res) => {
       return;
     }
     console.log("Successfully recieved tuple", rows[0]);
-    res_data.right_data = rows[0]; 
+    res_data.right_data = rows[0];
   });
   //send back the data
   res.send(res_data);
-  
+
 });
 
 state_names = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
@@ -58,6 +58,40 @@ app.get('/', (req, res) => {
     title: 'State Data Viewer',
     states: state_names
   });
+});
+
+//handle querying to get data for plots
+app.post('/stateinfo', (req, res) => {
+  state_info = {
+    data:[]
+  }
+
+  //First query will return back full state name since we pass in abbreviation
+  connection.query("SELECT state_name FROM `state_mapping` WHERE abbrv_name = '" + req.body.state +"'", (err, rows)=>{
+    if(err){
+      console.log("Failed query!");
+      return;
+    }
+    console.log("Successfully recieved tuple", rows[0]);
+    let stateName = rows[0]['state_name'];
+
+  });
+
+  //general queries for the specific states data
+
+  // connection.query("SELECT * FROM " + req.body.right + " WHERE state = " + req.body.state, (err, rows)=>{
+  //   if(err){
+  //     console.log("Failed query!");
+  //     return;
+  //   }
+  //   console.log("Successfully recieved tuple", rows[0]);
+  //   res_data.right_data = rows[0];
+  // });
+
+  //after you query the data add it to data and send it back to be printed out...
+  // //send back the data
+  res.send(state_info);
+
 });
 
 const server = app.listen(7000,() => {

@@ -5,6 +5,10 @@ head
   link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
   link(rel='stylesheet', href='/css/style.css')
   script(src="https://code.jquery.com/jquery-3.4.1.min.js")
+  script(src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js")
+  script(src='/us-map-1.0.1/lib/raphael.js')
+  script(src='/us-map-1.0.1/jquery.usmap.js')
+
   script    
     include index.js
   meta(name="viewport" content="width=device-width, initial-scale=1")
@@ -49,3 +53,8 @@ body
             button.btn.btn-primary.tablename Voting
             button.btn.btn-primary.tablename Education
             
+        //- Interactive Map 
+        
+        div.map-container
+          div#map 
+          div#clicked-state

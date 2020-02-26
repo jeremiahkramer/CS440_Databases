@@ -57,12 +57,41 @@ function relClick(){
 
 
     xhr = new XMLHttpRequest();
-    xhr.open("GET","/newtweet",true); 
+    xhr.open("GET","/newtweet",true);
     xhr.send();
     xhr.onload = function(){
         var check = JSON.parse(xhr.response);
         data = (check['ndata'][0]);
         newItem(data,check['rc'],check['ic'],check['mc']);
+    };
+}
+//Interactive Map Javascript
+$('#map').usmap({
+
+  //click action
+  click: function(event, data) {
+    $('#clicked-state').text('Selected State: '+data.name);
+    $('#clicked-state').effect('highlight', {color: '#C7F464'}, 2000);
+    getstatedata(data.name);
+}
+
+});
+
+function getstatedata(state_abbrev){
+
+  var xhr = new XMLHttpRequest();
+  let data = {
+    state : state_abbrev
+  };
+  var jsonData = JSON.stringify(data);
+  // console.log(jsonData);
+  xhr.open("post", "/stateinfo", true);
+  xhr.setRequestHeader('Content-type','application/json');
+  xhr.send(jsonData);
+  //recieve the data
+  xhr.onload = function(){
+      let res = JSON.parse(xhr.response);
+      console.log(res);
     };
 }
 });//JQuery end
