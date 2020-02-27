@@ -51,20 +51,21 @@
     opacity: 1;
 }
 
-.graph {
+/* .graph {
     height: 70px;
     width: 10%;
     overflow:auto;
-}
+} */
 .caret {
     position: absolute;
     right: 16px;
     top: 16px;
 }
 
-.dropdown-menu {width: 100%;}
+/* .dropdown-menu {width: 100%;} */
 
 .map-container{
+  margin-top: 20px;
   width: 100%;
   position: absolute;
 }

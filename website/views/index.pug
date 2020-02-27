@@ -2,10 +2,12 @@ doctype html
 html
 head
   title #{title}
-  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
   link(rel='stylesheet', href='/css/style.css')
-  script(src="https://code.jquery.com/jquery-3.4.1.min.js")
-  script(src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js")
+  script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous")
+  link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")
+  script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous")
+
   script(src='/us-map-1.0.1/lib/raphael.js')
   script(src='/us-map-1.0.1/jquery.usmap.js')
 
@@ -19,42 +21,43 @@ body
         h1 #{title}
     block content
     div.container
-        div.topBox
-        
-            div.badge-warning.dynamic.left(data-tablename="" )
-                button.x.close(aria-label="Close")
-                    span(aria-hidden="true") &times;
-                p.pholder.xytext.lefttext(placeholder="Click a table to compare!")
-            
-            div.badge-primary.dynamic.middle VS.
-            
-            div.badge-danger.dynamic.right(data-tablename="" )
-                button.x.close(aria-label="Close")
-                    span(aria-hidden="true") &times;
-                p.pholder.xytext.righttext(placeholder="Click a table to compare!")
-            
-            button.btn.btn-secondary.graph Plot!
-
-            label(class="select" for="state-select") Select State
-            select(name="state-select" id="state-select" data-mini="true")
-              each name in states
-                option(value= {name}) #{name}
-
-        div.btn-group-vertical
-            button.btn.btn-primary.tablename Births
-            button.btn.btn-primary.tablename Crime
-            button.btn.btn-primary.tablename Mortality
-            button.btn.btn-primary.tablename Income
-            button.btn.btn-primary.tablename Elevation              
-            button.btn.btn-primary.tablename Population
-            button.btn.btn-primary.tablename Mental Illness           
-            button.btn.btn-primary.tablename Crime
-            button.btn.btn-primary.tablename STD's
-            button.btn.btn-primary.tablename Voting
-            button.btn.btn-primary.tablename Education
-            
+      form
+        div.row.text-center
+          div.col
+            div.dropdown
+              button.btn.btn-secondary.dropdown-toggle.w-100(type="button" id="left-table" data-toggle="dropdown" aria-haspopup="true", aria-expanded="false") Select a table
+              div.dropdown-menu(aria-labelledby="left-table")
+                button.dropdown-item(href="#") Births
+                button.dropdown-item(href="#") Crime
+                button.dropdown-item(href="#") Mortality
+                button.dropdown-item(href="#") Income
+                button.dropdown-item(href="#") Elevation              
+                button.dropdown-item(href="#") Population
+                button.dropdown-item(href="#") Mental Illness           
+                button.dropdown-item(href="#") Crime
+                button.dropdown-item(href="#") STD's
+                button.dropdown-item(href="#") Voting
+                button.dropdown-item(href="#") Education
+          div.col VS.
+          div.col
+            div.dropdown
+              button.btn.btn-secondary.dropdown-toggle.w-100(type="button" id="right-table" data-toggle="dropdown" aria-haspopup="true", aria-expanded="false") Select a table
+              div.dropdown-menu(aria-labelledby="right-table")
+                button.dropdown-item(href="#") Births
+                button.dropdown-item(href="#") Crime
+                button.dropdown-item(href="#") Mortality
+                button.dropdown-item(href="#") Income
+                button.dropdown-item(href="#") Elevation              
+                button.dropdown-item(href="#") Population
+                button.dropdown-item(href="#") Mental Illness           
+                button.dropdown-item(href="#") Crime
+                button.dropdown-item(href="#") STD's
+                button.dropdown-item(href="#") Voting
+                button.dropdown-item(href="#") Education
+        div.row
+          button.btn.btn-primary Plot!
         //- Interactive Map 
-        
+      div.row  
         div.map-container
           div#map 
           div#clicked-state
