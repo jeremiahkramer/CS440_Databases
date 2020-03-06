@@ -1,0 +1,17 @@
+{
+    "birth_rate": "SELECT state, AVG(birth_rate) birth_rate FROM birth_data_by_county GROUP BY state",
+    "crime": "SELECT state, SUM(violent) violent, SUM(murder) murder, SUM(rape) rape, SUM(robbery) robbery, SUM(aggravated_assault) aggravated_assault, SUM(property) property, SUM(burglary) burglary, SUM(larceny) larceny, SUM(motor) motor, SUM(arson) arson FROM crime_data GROUP BY state",
+    "education": "SELECT state, SUM(less_than_hs_diploma) less_than_hs_diploma, SUM(hs_diploma_only) hs_diploma_only, SUM(some_college) some_college, SUM(bachelors_degree) bachelors_degree FROM education_data GROUP BY state",
+    "elevation": "SELECT state, highest_elevation, lowest_elevation, average_elevation FROM elevation",
+    "homeless": "SELECT state, measures, SUM(count) FROM homeless_data GROUP BY state, measures",
+    "income": "SELECT state, AVG(mean) avg_salary FROM income_data GROUP BY state",
+    "mental_illness": "SELECT state, illness, COUNT(illness) num_diagnosed FROM mental_illness GROUP BY state, illness",
+    "mortality": "SELECT state, cause_of_death, COUNT(cause_of_death) num_cases FROM mortality GROUP BY state, cause_of_death",
+    "population": "SELECT state, age_group, AVG(tot_pop) total_population FROM population GROUP BY state, age_group",
+    "poverty": "SELECT state, SUM(total_poverty) total_poverty FROM poverty_by_county GROUP BY state",
+    "sex_and_race": "SELECT state, sex_str, race_str, population FROM sex_and_race_view",
+    "std": "SELECT state, std, COUNT(std) num_cases FROM std_data GROUP BY state, std",
+    "unemployment": "SELECT state, AVG(rate) unemployment_rate FROM unemployment_data GROUP BY state",
+    "voting": "SELECT state, party, COUNT(party) party_count FROM voting_data GROUP BY state, party",
+    "weather": "SELECT state, AVG(AvgTemp) avg_temp FROM weather_data GROUP BY state"
+}
