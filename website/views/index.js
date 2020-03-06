@@ -45,6 +45,37 @@ $(".graph").click(function() {
       };
 });
 
+$('#select-states').click((e) => {
+    let selected = $('#select-states').val();
+
+    // If the user selects all states, then we don't want them to select others as well
+    if ((selected.length > 0 && selected[0] === 'All States') || (e.target.textContent === 'All States')) {
+        $('#select-states').val(['All States']);
+    }
+});
+
+$('#plot-btn').click(() => {
+    let statesSelected = $('#select-states').val();
+    
+    if (statesSelected.length > 0 && statesSelected[0] === 'All States') {
+        statesSelected = [];
+    }
+
+    const xhr = new XMLHttpRequest();
+    const req = {
+        'states': statesSelected
+    };
+
+    xhr.open('POST', '/query', true);
+    xhr.setRequestHeader('Content-type', 'application/json');
+    xhr.send(JSON.stringify(req));
+
+    xhr.onload = () => {
+        console.log(xhr.response);
+    }
+    console.log(statesSelected);
+});
+
 function relClick(){
     var xhr = new XMLHttpRequest();
     var newData = data;
