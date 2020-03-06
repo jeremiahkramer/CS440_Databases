@@ -2,7 +2,8 @@ doctype html
 html
 head
   title #{title}
-  link(rel='stylesheet', href='/css/style.css')
+  link(rel='stylesheet'
+   href='/css/style.css')
   script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous")
   link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")
@@ -21,41 +22,64 @@ body
         h1 #{title}
     block content
     div.container
-      form
-        div.row.text-center
-          div.col
-            div.dropdown
-              button.btn.btn-secondary.dropdown-toggle.w-100(type="button" id="left-table" data-toggle="dropdown" aria-haspopup="true", aria-expanded="false") Select a table
-              div.dropdown-menu(aria-labelledby="left-table")
-                button.dropdown-item(href="#") Births
-                button.dropdown-item(href="#") Crime
-                button.dropdown-item(href="#") Mortality
-                button.dropdown-item(href="#") Income
-                button.dropdown-item(href="#") Elevation              
-                button.dropdown-item(href="#") Population
-                button.dropdown-item(href="#") Mental Illness           
-                button.dropdown-item(href="#") Crime
-                button.dropdown-item(href="#") STD's
-                button.dropdown-item(href="#") Voting
-                button.dropdown-item(href="#") Education
-          div.col VS.
-          div.col
-            div.dropdown
-              button.btn.btn-secondary.dropdown-toggle.w-100(type="button" id="right-table" data-toggle="dropdown" aria-haspopup="true", aria-expanded="false") Select a table
-              div.dropdown-menu(aria-labelledby="right-table")
-                button.dropdown-item(href="#") Births
-                button.dropdown-item(href="#") Crime
-                button.dropdown-item(href="#") Mortality
-                button.dropdown-item(href="#") Income
-                button.dropdown-item(href="#") Elevation              
-                button.dropdown-item(href="#") Population
-                button.dropdown-item(href="#") Mental Illness           
-                button.dropdown-item(href="#") Crime
-                button.dropdown-item(href="#") STD's
-                button.dropdown-item(href="#") Voting
-                button.dropdown-item(href="#") Education
-        div.row
-          button.btn.btn-primary Plot!
+      div.row
+        div.col
+          div.form-group
+            label(for="select-states") Select the state(s) you would like to see data for
+            select.form-control#select-states(multiple)
+              option All States
+              option Alabama
+              option Alaska
+              option Arizona
+              option Arkansas
+              option California
+              option Colorado
+              option Connecticut
+              option Delaware
+              option Florida
+              option Georgia
+              option Hawaii
+              option Idaho
+              option Illinois
+              option Indiana
+              option Iowa
+              option Kansas
+              option Kentucky
+              option Louisiana
+              option Maine
+              option Maryland
+              option Massachusetts
+              option Michigan
+              option Minnesota
+              option Mississippi
+              option Missouri
+              option Montana
+              option Nebraska
+              option Nevada
+              option New Hampshire
+              option New Jersey
+              option New Mexico
+              option New York
+              option North Carolina
+              option North Dakota
+              option Ohio
+              option Oklahoma
+              option Oregon
+              option Pennsylvania
+              option Rhode Island
+              option South Carolina
+              option South Dakota
+              option Tennessee
+              option Texas
+              option Utah
+              option Vermont
+              option Virginia
+              option Washington
+              option West Virginia
+              option Wisconsin
+              option Wyoming
+      div.row
+        button.btn.btn-primary(id="plot-btn") Plot!
         //- Interactive Map 
       div.row  
         div.map-container
