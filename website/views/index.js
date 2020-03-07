@@ -61,15 +61,15 @@ $(document).ready(function() {//JQuery start
                 "average_elevation"
             ]
         },
-        // "homeless": {
-        //     "dynamic_labels": true,
-        //     "labels": [
-        //         "measures"
-        //     ],
-        //     "values": [
-        //         "num_homeless"
-        //     ]
-        // },
+        "homeless": {
+            "dynamic_labels": false,
+            "labels": [
+                "Number of Homeless"
+            ],
+            "values": [
+                "num_homeless"
+            ]
+        },
         "income": {
             "dynamic_labels": false,
             "labels": [
@@ -79,33 +79,33 @@ $(document).ready(function() {//JQuery start
                 "avg_salary"
             ]
         },
-        // "mental_illness": {
-        //     "dynamic_labels": true,
-        //     "labels": [
-        //         "illness"
-        //     ],
-        //     "values": [
-        //         "num_diagnosed"
-        //     ]
-        // },
-        // "mortality": {
-        //     "dynamic_labels": true,
-        //     "labels": [
-        //         "cause_of_death"
-        //     ],
-        //     "values": [
-        //         "num_cases"
-        //     ]
-        // },
-        // "population": {
-        //     "dynamic_labels": true,
-        //     "labels": [
-        //         "age_group"
-        //     ], 
-        //     "values": [
-        //         "total_population"
-        //     ]
-        // },
+        "mental_illness": {
+            "dynamic_labels": false,
+            "labels": [
+                "Mental Illness Cases"
+            ],
+            "values": [
+                "num_diagnosed"
+            ]
+        },
+        "mortality": {
+            "dynamic_labels": false,
+            "labels": [
+                "Number of Deaths"
+            ],
+            "values": [
+                "num_cases"
+            ]
+        },
+        "population": {
+            "dynamic_labels": false,
+            "labels": [
+                "Population Count"
+            ], 
+            "values": [
+                "total_population"
+            ]
+        },
         "poverty": {
             "dynamic_labels": false,
             "labels": [
@@ -115,15 +115,15 @@ $(document).ready(function() {//JQuery start
                 "total_poverty"
             ]
         },
-        // "std": {
-        //     "dynamic_labels": true,
-        //     "labels": [
-        //         "std"
-        //     ],
-        //     "values": [
-        //         "num_cases"
-        //     ]
-        // },
+        "std": {
+            "dynamic_labels": false,
+            "labels": [
+                "STD count"
+            ],
+            "values": [
+                "num_cases"
+            ]
+        },
         "unemployment": {
             "dynamic_labels": false,
             "labels": [
@@ -133,15 +133,15 @@ $(document).ready(function() {//JQuery start
                 "unemployment_rate"
             ]
         },
-        // "voting": {
-        //     "dynamic_labels": true,
-        //     "labels": [
-        //         "party"
-        //     ],
-        //     "values": [
-        //         "party_count"
-        //     ]
-        // },
+        "voting": {
+            "dynamic_labels": true,
+            "labels": [
+                "party"
+            ],
+            "values": [
+                "party_count"
+            ]
+        },
         "weather": {
             "dynamic_labels": false,
             "labels": [
@@ -221,6 +221,7 @@ $(document).ready(function() {//JQuery start
 
         xhr.open('POST', '/query', true);
         xhr.setRequestHeader('Content-type', 'application/json');
+        console.log(req);
         xhr.send(JSON.stringify(req));
 
         xhr.onload = () => {
