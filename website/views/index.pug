@@ -34,10 +34,6 @@ body
       div.row
         button.btn.btn-primary(id="plot-btn") Plot!
         //- Interactive Map 
-      div.row  
-        div.map-container
-          div#map 
-          div#clicked-state
       div.row
         div.col
           canvas#birth_rate-chart(width="400" height="400" style="display: none")
@@ -71,11 +67,14 @@ body
       div.row
         div.col
           canvas#std-chart(width="400" height="400" style="display: none")
-      div.row
         div.col
           canvas#voting-chart(width="400" height="400" style="display: none")
       div.row
         div.col
           canvas#weather-chart(width="400" height="400" style="display: none")
-
+      div.row
+        div.col  
+          div.map-container
+            div#map 
+            div#clicked-state
 

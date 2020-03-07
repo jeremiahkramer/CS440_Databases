@@ -85,6 +85,8 @@ app.post('/query', async (req, res) => {
       const results = await queryDB.queryDB(query, constraint);
       response[key] = results;
     } catch (err) {
+      console.log(query + constraint);
+      console.log(err);
       return res.status(500).send(err);
     }
   }

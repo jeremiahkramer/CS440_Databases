@@ -152,6 +152,7 @@ $(document).ready(function() {//JQuery start
             ]
         }
     };
+    let charts = [];
 
     //populate div data
     $(".tablename").click(function() {
@@ -226,7 +227,8 @@ $(document).ready(function() {//JQuery start
 
         xhr.onload = () => {
             const data = JSON.parse(xhr.response);
-            
+       
+            let i = 0;
             for (let chart of Object.keys(data)) {
                 if (data.hasOwnProperty(chart)) {
                     if (columnsToSelect.hasOwnProperty(chart)) {
@@ -254,7 +256,12 @@ $(document).ready(function() {//JQuery start
                         if (statesSelected.length === 0) {
                             states = data[chart].map(item => item.state);
                         }
-                        generateChart(chart + '-chart', chart, datasets, stacked, states);
+                        if (charts.length > i) {
+                            charts[i] = generateChart(charts[i], chart + '-chart', chart, datasets, stacked, states);
+                        } else {
+                            charts.push(generateChart(null, chart + '-chart', chart, datasets, stacked, states));
+                        }
+                        i += 1;
                     }
                 }
             }         
@@ -289,27 +296,52 @@ $(document).ready(function() {//JQuery start
         return "rgb(" + r + "," + g + "," + b + ")";    
     }
 
-    function generateChart(htmlID, chartInternalName, datasets, stacked, states) {
+    function generateChart(chartRef, htmlID, chartInternalName, datasets, stacked, states) {
         const ctx = $(`#${htmlID}`);
         ctx.show();
-        return new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: states,
-                datasets: datasets
-            },
-            options: {
+        if (!chartRef) {
+            console.log("Chart is null");
+            return new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: states,
+                    datasets: datasets
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            stacked: stacked,
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }],
+                        xAxes: [{
+                            stacked: stacked
+                        }]
+                    },
+                    responsive: false
+                }
+            });
+        } else {
+            console.log("Chart is not null")
+            chartRef.data.labels = states;
+            chartRef.data.datasets = datasets;
+            chartRef.options = {
                 scales: {
                     yAxes: [{
-                        stacked: stacked
+                        stacked: stacked,
+                        ticks: {
+                            beginAtZero: true
+                        }
                     }],
                     xAxes: [{
                         stacked: stacked
                     }]
                 },
-                responsive: true
+                responsive: false
             }
-        });
+            chartRef.update();
+        }
     }
     //Interactive Map Javascript
     $('#map').usmap({
