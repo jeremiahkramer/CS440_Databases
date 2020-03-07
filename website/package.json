@@ -12,6 +12,7 @@
   "dependencies": {
     "bootstrap": "^4.4.1",
     "canvas": "^2.6.1",
+    "chart.js": "^2.9.3",
     "chartjs-node": "^1.7.1",
     "compat": "^1.0.4",
     "express": "^4.17.1",

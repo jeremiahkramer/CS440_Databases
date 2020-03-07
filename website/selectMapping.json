@@ -3,7 +3,7 @@
     "crime": "SELECT state, SUM(violent) violent, SUM(murder) murder, SUM(rape) rape, SUM(robbery) robbery, SUM(aggravated_assault) aggravated_assault, SUM(property) property, SUM(burglary) burglary, SUM(larceny) larceny, SUM(motor) motor, SUM(arson) arson FROM crime_data GROUP BY state",
     "education": "SELECT state, SUM(less_than_hs_diploma) less_than_hs_diploma, SUM(hs_diploma_only) hs_diploma_only, SUM(some_college) some_college, SUM(bachelors_degree) bachelors_degree FROM education_data GROUP BY state",
     "elevation": "SELECT state, highest_elevation, lowest_elevation, average_elevation FROM elevation",
-    "homeless": "SELECT state, measures, SUM(count) FROM homeless_data GROUP BY state, measures",
+    "homeless": "SELECT state, measures, SUM(count) num_homeless FROM homeless_data GROUP BY state, measures",
     "income": "SELECT state, AVG(mean) avg_salary FROM income_data GROUP BY state",
     "mental_illness": "SELECT state, illness, COUNT(illness) num_diagnosed FROM mental_illness GROUP BY state, illness",
     "mortality": "SELECT state, cause_of_death, COUNT(cause_of_death) num_cases FROM mortality GROUP BY state, cause_of_death",

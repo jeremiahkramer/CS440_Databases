@@ -11,6 +11,7 @@ head
 
   script(src='/us-map-1.0.1/lib/raphael.js')
   script(src='/us-map-1.0.1/jquery.usmap.js')
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous")
 
   script    
     include index.js
@@ -28,60 +29,53 @@ body
             label(for="select-states") Select the state(s) you would like to see data for
             select.form-control#select-states(multiple)
               option All States
-              option Alabama
-              option Alaska
-              option Arizona
-              option Arkansas
-              option California
-              option Colorado
-              option Connecticut
-              option Delaware
-              option Florida
-              option Georgia
-              option Hawaii
-              option Idaho
-              option Illinois
-              option Indiana
-              option Iowa
-              option Kansas
-              option Kentucky
-              option Louisiana
-              option Maine
-              option Maryland
-              option Massachusetts
-              option Michigan
-              option Minnesota
-              option Mississippi
-              option Missouri
-              option Montana
-              option Nebraska
-              option Nevada
-              option New Hampshire
-              option New Jersey
-              option New Mexico
-              option New York
-              option North Carolina
-              option North Dakota
-              option Ohio
-              option Oklahoma
-              option Oregon
-              option Pennsylvania
-              option Rhode Island
-              option South Carolina
-              option South Dakota
-              option Tennessee
-              option Texas
-              option Utah
-              option Vermont
-              option Virginia
-              option Washington
-              option West Virginia
-              option Wisconsin
-              option Wyoming
+              each state in states
+                option #{state}
       div.row
         button.btn.btn-primary(id="plot-btn") Plot!
         //- Interactive Map 
-      div.row  
-        div.map-container
-          div#map 
-          div#clicked-state
+      //- div.row  
+      //-   div.map-container
+      //-     div#map 
+      //-     div#clicked-state
+      div.row
+        div.col
+          canvas#birth_rate-chart(width="400" height="400" style="display: none")
+        div.col
+          canvas#unemployment-chart(width="400" height="400" style="display: none")
+      div.row
+        div.col
+          canvas#crime-chart(width="400" height="400" style="display: none")
+        div.col
+          canvas#education-chart(width="400" height="400" style="display: none")
+      div.row
+        div.col
+          canvas#elevation-chart(width="400" height="400" style="display: none")
+        div.col
+          canvas#income-chart(width="400" height="400" style="display: none")
+      div.row
+        div.col
+          canvas#homeless-chart(width="400" height="400" style="display: none")
+        div.col
+          canvas#population-chart(width="400" height="400" style="display: none")
+      div.row
+        div.col
+          canvas#mental_illness-chart(width="400" height="400" style="display: none")
+        div.col
+          canvas#mortality-chart(width="400" height="400" style="display: none")
+      div.row
+        div.col
+          canvas#poverty-chart(width="400" height="400" style="display: none")
+        div.col
+          canvas#sex_and_race-chart(width="400" height="400" style="display: none")
+      div.row
+        div.col
+          canvas#std-chart(width="400" height="400" style="display: none")
+      div.row
+        div.col
+          canvas#voting-chart(width="400" height="400" style="display: none")
+      div.row
+        div.col
+          canvas#weather-chart(width="400" height="400" style="display: none")
+
+
