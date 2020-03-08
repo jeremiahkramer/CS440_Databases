@@ -7,7 +7,7 @@
     "income": "SELECT state, AVG(mean) avg_salary FROM income_data GROUP BY state",
     "mental_illness": "SELECT state, COUNT(illness) num_diagnosed FROM mental_illness GROUP BY state",
     "mortality": "SELECT state, COUNT(state) num_cases FROM mortality GROUP BY state",
-    "population": "SELECT state, AVG(tot_pop) total_population FROM population GROUP BY state",
+    "population": "SELECT state, SUM(tot_pop) total_population FROM population where year = 2020 GROUP BY state",
     "poverty": "SELECT state, SUM(total_poverty) total_poverty FROM poverty_by_county GROUP BY state",
     "sex_and_race": "SELECT state, sex_str, race_str, population FROM sex_and_race_view",
     "std": "SELECT state, COUNT(state) num_cases FROM std_data GROUP BY state",
