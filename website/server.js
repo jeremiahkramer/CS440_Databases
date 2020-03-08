@@ -69,7 +69,7 @@ app.get('/', (req, res) => {
 // This returns all of the tables information for given states
 app.post('/query', async (req, res) => {
   const states = req.body.states;
-  
+
   let constraint = "";
   if (states.length === 1) {
     constraint = " HAVING state = '" + states[0] + "'";
@@ -79,7 +79,7 @@ app.post('/query', async (req, res) => {
 
   let response = {};
   const queries = Object.entries(queryMapping);
-  
+
   for (const [key, query] of queries) {
     try {
       const results = await queryDB.queryDB(query, constraint);
@@ -90,6 +90,7 @@ app.post('/query', async (req, res) => {
       return res.status(500).send(err);
     }
   }
+  console.log(response);
   return res.json(response);
 });
 

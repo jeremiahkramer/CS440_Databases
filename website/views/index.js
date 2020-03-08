@@ -101,7 +101,7 @@ $(document).ready(function() {//JQuery start
             "dynamic_labels": false,
             "labels": [
                 "Population Count"
-            ], 
+            ],
             "values": [
                 "total_population"
             ]
@@ -210,11 +210,11 @@ $(document).ready(function() {//JQuery start
 
     $('#plot-btn').click(() => {
         let statesSelected = $('#select-states').val();
-        
+
         if (statesSelected.length > 0 && statesSelected[0] === 'All States') {
             statesSelected = [];
         }
-
+        console.log("State selected was: " + statesSelected);
         const xhr = new XMLHttpRequest();
         const req = {
             'states': statesSelected
@@ -227,7 +227,7 @@ $(document).ready(function() {//JQuery start
 
         xhr.onload = () => {
             const data = JSON.parse(xhr.response);
-       
+
             let i = 0;
             for (let chart of Object.keys(data)) {
                 if (data.hasOwnProperty(chart)) {
@@ -264,7 +264,7 @@ $(document).ready(function() {//JQuery start
                         i += 1;
                     }
                 }
-            }         
+            }
         }
     });
 
@@ -293,7 +293,7 @@ $(document).ready(function() {//JQuery start
         const r = Math.floor(Math.random() * 255);
         const g = Math.floor(Math.random() * 255);
         const b = Math.floor(Math.random() * 255);
-        return "rgb(" + r + "," + g + "," + b + ")";    
+        return "rgb(" + r + "," + g + "," + b + ")";
     }
 
     function generateChart(chartRef, htmlID, chartInternalName, datasets, stacked, states) {
@@ -348,28 +348,53 @@ $(document).ready(function() {//JQuery start
 
     //click action
     click: function(event, data) {
-        $('#clicked-state').text('Selected State: '+data.name);
-        $('#clicked-state').effect('highlight', {color: '#C7F464'}, 2000);
+        let stateSelected = state_switch[data.name];
+        var cache = $('#clicked-state').children();
+        $('#clicked-state').text('Selected State: '+stateSelected).append(cache);
         getstatedata(data.name);
     }
 
     });
 
-    function getstatedata(state_abbrev){
+var state_switch = {AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',DE:'Delaware',FL:'Florida',GA:'Georgia', HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan', MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming'};
 
-        var xhr = new XMLHttpRequest();
-        let data = {
-            state : state_abbrev
-        };
-        var jsonData = JSON.stringify(data);
-        // console.log(jsonData);
-        xhr.open("post", "/stateinfo", true);
-        xhr.setRequestHeader('Content-type','application/json');
-        xhr.send(jsonData);
-        //recieve the data
-        xhr.onload = function(){
-            let res = JSON.parse(xhr.response);
-            console.log(res);
-        };
+    function getstatedata(state_abbrev){
+      let statesSelected = state_switch[state_abbrev];
+      const xhr = new XMLHttpRequest();
+      const req = {
+          'states': [statesSelected]
+      };
+      const view_data = {}
+      xhr.open('POST', '/query', true);
+      xhr.setRequestHeader('Content-type', 'application/json');
+      console.log(req);
+      xhr.send(JSON.stringify(req));
+      xhr.onload = () => {
+          const data = JSON.parse(xhr.response);
+          view_data["BR"] = data['birth_rate'][0]['birth_rate'];
+          view_data["UR"] = data['unemployment'][0]['unemployment_rate'];
+          view_data["AE"] = data['elevation'][0]['average_elevation'];
+          view_data["AS"] = data['income'][0]['avg_salary'];
+          view_data["NH"] = data['homeless'][0]['num_homeless'];
+          view_data["PO"] = data['population'][0]['total_population'];
+          view_data["MI"] = data['mental_illness'][0]['num_diagnosed'];
+          view_data["ND"] = data['mortality'][0]['num_cases'];
+          view_data["PC"] = data['poverty'][0]['total_poverty'];
+          view_data["STD"] = data['std'][0]['num_cases'];
+          view_data["AT"] = data['weather'][0]['avg_temp'];
+          // $('#state-info').text('Birth Rate: '+view_data["BR"].toFixed(2) +'\n Unemployment Rate: '+view_data["UR"].toFixed(2) + '\n Average Elevation: '+view_data["AE"] + '\n Average Salary: '+view_data["AS"].toFixed(2)+ '\n Number of Homeless: '+view_data["NH"]+'\n Population: '+view_data["PO"].toFixed(2)+ '\n Mental Illness: '+view_data["MI"]+'\n Mortality: '+view_data["ND"]+"\n Poverty: "+view_data["PC"]+'\n STD: '+view_data["STD"]+'\n Average Temperature: '+view_data["AT"].toFixed(2));
+          $('#birth_rate').text('Birth Rate: '+view_data["BR"].toFixed(2));
+          $('#unemployment_rate').text('Unemployment Rate: '+view_data["UR"].toFixed(2));
+          $('#elevation').text('Average Elevation: '+view_data["AE"]);
+          $('#income').text('Average Salary: '+view_data["AS"].toFixed(2));
+          $('#homeless').text('Number of Homeless: '+view_data["NH"]);
+          $('#population').text('Population: '+view_data["PO"].toFixed(0));
+          $('#mental').text('Mental Illness: '+view_data["MI"]);
+          $('#mortality').text('Mortality: '+view_data["ND"]);
+          $('#poverty').text('Poverty: '+view_data["PC"]);
+          $('#std').text('STD: '+view_data["STD"]);
+          $('#weather').text('Average Temperature: '+view_data["AT"].toFixed(2));
+        }
+
     }
 });//JQuery end
