@@ -13,7 +13,7 @@ head
   script(src='/us-map-1.0.1/jquery.usmap.js')
   script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous")
 
-  script    
+  script
     include index.js
   meta(name="viewport" content="width=device-width, initial-scale=1")
 body
@@ -33,7 +33,7 @@ body
                 option #{state}
       div.row
         button.btn.btn-primary(id="plot-btn") Plot!
-        //- Interactive Map 
+        //- Interactive Map
       div.row
         div.col
           canvas#birth_rate-chart(width="400" height="400" style="display: none")
@@ -73,8 +73,20 @@ body
         div.col
           canvas#weather-chart(width="400" height="400" style="display: none")
       div.row
-        div.col  
+        div.col
           div.map-container
-            div#map 
+            div#map
             div#clicked-state
-
+              div.col
+                div#state-info
+                  p.inf#birth_rate
+                  p.inf#unemployment_rate
+                  p.inf#elevation
+                  p.inf#income
+                  p.inf#homeless
+                  p.inf#population
+                  p.inf#mental
+                  p.inf#mortality
+                  p.inf#poverty
+                  p.inf#std
+                  p.inf#weather
