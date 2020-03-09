@@ -3,15 +3,15 @@
     "crime": "SELECT state, SUM(violent) violent, SUM(murder) murder, SUM(rape) rape, SUM(robbery) robbery, SUM(aggravated_assault) aggravated_assault, SUM(property) property, SUM(burglary) burglary, SUM(larceny) larceny, SUM(motor) motor, SUM(arson) arson FROM crime_data GROUP BY state",
     "education": "SELECT state, SUM(less_than_hs_diploma) less_than_hs_diploma, SUM(hs_diploma_only) hs_diploma_only, SUM(some_college) some_college, SUM(bachelors_degree) bachelors_degree FROM education_data GROUP BY state",
     "elevation": "SELECT state, highest_elevation, lowest_elevation, average_elevation FROM elevation",
-    "homeless": "SELECT state, SUM(count) num_homeless FROM homeless_data GROUP BY state",
+    "homeless": "SELECT state, SUM(count) num_homeless FROM homeless_data WHERE measures = 'Total Homeless' GROUP BY state",
     "income": "SELECT state, AVG(mean) avg_salary FROM income_data GROUP BY state",
-    "mental_illness": "SELECT state, COUNT(illness) num_diagnosed FROM mental_illness GROUP BY state",
+    "mental_illness": "SELECT state, adhd, anxiety_disorder, bipolar, depression, eating_disorder, ocd, schizophrenia, other FROM mental_illness_by_illness",
     "mortality": "SELECT state, COUNT(state) num_cases FROM mortality GROUP BY state",
     "population": "SELECT state, SUM(tot_pop) total_population FROM population where year = 2020 GROUP BY state",
     "poverty": "SELECT state, SUM(total_poverty) total_poverty FROM poverty_by_county GROUP BY state",
     "sex_and_race": "SELECT state, sex_str, race_str, population FROM sex_and_race_view",
     "std": "SELECT state, COUNT(state) num_cases FROM std_data GROUP BY state",
     "unemployment": "SELECT state, AVG(rate) unemployment_rate FROM unemployment_data GROUP BY state",
-    "voting": "SELECT state, party, COUNT(party) party_count FROM voting_data GROUP BY state, party",
+    "voting": "SELECT state, republicans, democrats, greens, constitutions, independents, libertarians, others FROM voting_data_by_party",
     "weather": "SELECT state, AVG(AvgTemp) avg_temp FROM weather_data GROUP BY state"
 }

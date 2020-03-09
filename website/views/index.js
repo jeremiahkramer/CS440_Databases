@@ -82,10 +82,24 @@ $(document).ready(function() {//JQuery start
         "mental_illness": {
             "dynamic_labels": false,
             "labels": [
-                "Mental Illness Cases"
+                "Adhd", 
+                "Anxiety_disorder", 
+                "Bipolar", 
+                "Depression", 
+                "Eating_disorder", 
+                "Ocd", 
+                "Schizophrenia", 
+                "Other"
             ],
             "values": [
-                "num_diagnosed"
+                "adhd", 
+                "anxiety_disorder", 
+                "bipolar", 
+                "depression", 
+                "eating_disorder", 
+                "ocd", 
+                "schizophrenia", 
+                "other"
             ]
         },
         "mortality": {
@@ -134,12 +148,24 @@ $(document).ready(function() {//JQuery start
             ]
         },
         "voting": {
-            "dynamic_labels": true,
+            "dynamic_labels": false,
             "labels": [
-                "party"
+                "Republicans",
+                "Democrats",
+                "Greens",
+                "Constitutions",
+                "Independents",
+                "Libertarians",
+                "Others"
             ],
             "values": [
-                "party_count"
+                "republicans",
+                "democrats",
+                "greens",
+                "constitutions",
+                "independents",
+                "libertarians",
+                "others"
             ]
         },
         "weather": {
@@ -188,14 +214,12 @@ $(document).ready(function() {//JQuery start
             state: s
         };
         var jsonData = JSON.stringify(data);
-        console.log(jsonData);
         xhr.open("post", "/", true);
         xhr.setRequestHeader('Content-type','application/json');
         xhr.send(jsonData);
         //recieve the data
         xhr.onload = function(){
             let res = JSON.parse(xhr.response);
-            console.log(res);
         };
     });
 
@@ -215,7 +239,6 @@ $(document).ready(function() {//JQuery start
         if (statesSelected.length > 0 && statesSelected[0] === 'All States') {
             statesSelected = [];
         }
-        console.log("State selected was: " + statesSelected);
         const xhr = new XMLHttpRequest();
         const req = {
             'states': statesSelected
@@ -223,7 +246,6 @@ $(document).ready(function() {//JQuery start
 
         xhr.open('POST', '/query', true);
         xhr.setRequestHeader('Content-type', 'application/json');
-        console.log(req);
         xhr.send(JSON.stringify(req));
         xhr.onload = () => {
             $('#plot-loader').hide();
@@ -278,8 +300,6 @@ $(document).ready(function() {//JQuery start
         xhr.open("POST","/",true);
         xhr.setRequestHeader('Content-type','application/json');
         xhr.send(jsonData);
-        console.log("Clicked Relevant");
-
 
         xhr = new XMLHttpRequest();
         xhr.open("GET","/newtweet",true);
@@ -301,6 +321,7 @@ $(document).ready(function() {//JQuery start
     function generateChart(chartRef, htmlID, chartInternalName, datasets, stacked, states) {
         const ctx = $(`#${htmlID}`);
         ctx.show();
+        ctx.prev().show();
         if (!chartRef) {
             return new Chart(ctx, {
                 type: 'bar',
@@ -341,6 +362,7 @@ $(document).ready(function() {//JQuery start
                 responsive: false
             }
             chartRef.update();
+            return chartRef;
         }
     }
     //Interactive Map Javascript
@@ -380,34 +402,34 @@ var state_switch = {AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'Cali
       const view_data = {}
       xhr.open('POST', '/query', true);
       xhr.setRequestHeader('Content-type', 'application/json');
-      console.log(req);
       xhr.send(JSON.stringify(req));
       xhr.onload = () => {
           $('#state-loader').hide();
           const data = JSON.parse(xhr.response);
-          view_data["BR"] = data['birth_rate'][0]['birth_rate'];
-          view_data["UR"] = data['unemployment'][0].hasOwnProperty('unemployment_rate') ? data['unemployment'][0]['unemployment_rate'] : '';
-          view_data["AE"] = data['elevation'][0]['average_elevation'];
-          view_data["AS"] = data['income'][0]['avg_salary'];
-          view_data["NH"] = data['homeless'][0]['num_homeless'];
-          view_data["PO"] = data['population'][0]['total_population'];
-          view_data["MI"] = data['mental_illness'][0]['num_diagnosed'];
-          view_data["ND"] = data['mortality'][0]['num_cases'];
-          view_data["PC"] = data['poverty'][0]['total_poverty'];
-          view_data["STD"] = data['std'][0]['num_cases'];
-          view_data["AT"] = data['weather'][0]['avg_temp'];
+          view_data["BR"] = data['birth_rate'].length > 0 ? data['birth_rate'][0]['birth_rate'] : null;
+          view_data["UR"] = data['unemployment'].length > 0 ? data['unemployment'][0]['unemployment_rate'] : null;
+          view_data["AE"] = data['elevation'].length > 0 ? data['elevation'][0]['average_elevation'] : null;
+          view_data["AS"] = data['income'].length > 0 ? data['income'][0]['avg_salary'] : null;
+          view_data["NH"] = data['homeless'].length > 0 ? data['homeless'][0]['num_homeless'] : null;
+          view_data["PO"] = data['population'].length > 0 ? data['population'][0]['total_population'] : null;
+          view_data["MI"] = data['mental_illness'].length > 0 ? data['mental_illness'][0]['num_diagnosed'] : null;
+          view_data["ND"] = data['mortality'].length > 0 ? data['mortality'][0]['num_cases'] : null;
+          view_data["PC"] = data['poverty'].length > 0 ? data['poverty'][0]['total_poverty'] : null;
+          view_data["STD"] = data['std'].length > 0 ? data['std'][0]['num_cases'] : null;
+          view_data["AT"] = data['weather'].length > 0 ? data['weather'][0]['avg_temp'] : null;
+          
           // $('#state-info').text('Birth Rate: '+view_data["BR"].toFixed(2) +'\n Unemployment Rate: '+view_data["UR"].toFixed(2) + '\n Average Elevation: '+view_data["AE"] + '\n Average Salary: '+view_data["AS"].toFixed(2)+ '\n Number of Homeless: '+view_data["NH"]+'\n Population: '+view_data["PO"].toFixed(2)+ '\n Mental Illness: '+view_data["MI"]+'\n Mortality: '+view_data["ND"]+"\n Poverty: "+view_data["PC"]+'\n STD: '+view_data["STD"]+'\n Average Temperature: '+view_data["AT"].toFixed(2));
-          $('#birth_rate').text('Birth Rate: '+view_data["BR"].toFixed(2));
-          $('#unemployment_rate').text('Unemployment Rate: '+view_data["UR"].toFixed(2));
-          $('#elevation').text('Average Elevation: '+view_data["AE"]);
-          $('#income').text('Average Salary: '+view_data["AS"].toFixed(2));
-          $('#homeless').text('Number of Homeless: '+view_data["NH"]);
-          $('#population').text('Population: '+view_data["PO"].toFixed(0));
-          $('#mental').text('Mental Illness: '+view_data["MI"]);
-          $('#mortality').text('Mortality: '+view_data["ND"]);
-          $('#poverty').text('Poverty: '+view_data["PC"]);
-          $('#std').text('STD: '+view_data["STD"]);
-          $('#weather').text('Average Temperature: '+view_data["AT"].toFixed(2));
+          $('#birth_rate').text('Birth Rate: '+(view_data["BR"] ? view_data["BR"].toFixed(2) : ''));
+          $('#unemployment_rate').text('Unemployment Rate: ' + (view_data["UR"] ? view_data["UR"].toFixed(2) : ''));
+          $('#elevation').text('Average Elevation: '+(view_data["AE"] ? view_data["AE"] : ''));
+          $('#income').text('Average Salary: '+(view_data["AS"] ? view_data["AS"].toFixed(2) : ''));
+          $('#homeless').text('Number of Homeless: '+(view_data["NH"] ? view_data["NH"] : ''));
+          $('#population').text('Population: '+(view_data["PO"] ? view_data["PO"].toFixed(0) : ''));
+          $('#mental').text('Mental Illness: '+(view_data["MI"] ? view_data["MI"] : ''));
+          $('#mortality').text('Mortality: '+(view_data["ND"] ? view_data["ND"] : ''));
+          $('#poverty').text('Poverty: '+(view_data["PC"] ? view_data["PC"] : ''));
+          $('#std').text('STD: '+(view_data["STD"] ? view_data["STD"] : ''));
+          $('#weather').text('Average Temperature: '+(view_data["AT"] ? view_data["AT"].toFixed(2) : ''));
         }
 
     }
