@@ -60,9 +60,8 @@ const queryDB = require('./query')(connection);
 const state_names = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
 app.get('/', (req, res) => {
   res.render('index' ,{
-    title: 'State Data Viewer',
+    title: 'State-tistical',
     states: state_names,
-    tableName: Object.keys(queryMapping)
   });
 });
 
@@ -90,7 +89,6 @@ app.post('/query', async (req, res) => {
       return res.status(500).send(err);
     }
   }
-  console.log(response);
   return res.json(response);
 });
 

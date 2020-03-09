@@ -33,7 +33,7 @@ body
                 option #{state}
       div.row
         button.btn.btn-primary(id="plot-btn") Plot!
-        //- Interactive Map
+      div.loader#plot-loader(style="display:none")
       div.row
         div.col
           canvas#birth_rate-chart(width="400" height="400" style="display: none")
@@ -78,6 +78,7 @@ body
             div#map
             div#clicked-state
               div.col
+                div.loader#state-loader(style="display:none")
                 div#state-info
                   p.inf#birth_rate
                   p.inf#unemployment_rate
