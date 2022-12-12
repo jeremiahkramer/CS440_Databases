@@ -15,7 +15,7 @@
     "chart.js": "^2.9.3",
     "chartjs-node": "^1.7.1",
     "compat": "^1.0.4",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.2",
     "pug": "^2.0.4"
